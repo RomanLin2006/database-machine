@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.controllers.MainController">
+    <top>
+    </top>
+    <center>
+        <TableView fx:id="repairsTable">
+            <columns>
+                <TableColumn fx:id="machineIdColumn" text="ID станка" />
+                <TableColumn fx:id="clientNameColumn" text="Клиент" />
+                <TableColumn fx:id="contactInfoColumn" text="Контактная информация" />
+                <TableColumn fx:id="brandColumn" text="Бренд" />
+                <TableColumn fx:id="yearColumn" text="Год выпуска" />
+                <TableColumn fx:id="countryColumn" text="Страна-производитель" />
+                <TableColumn fx:id="repairTypeColumn" text="Тип ремонта" />
+                <TableColumn fx:id="startDateColumn" text="Дата" />
+                <TableColumn fx:id="durationDaysColumn" text="Длительность (дн.)" />
+                <TableColumn fx:id="costColumn" text="Стоимость" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
