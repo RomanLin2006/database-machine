@@ -5,29 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepairsContainer {
-    private static RepairsContainer container;
+    private static RepairsContainer instance;
     private List<Repair> repairs;
 
     private RepairsContainer() {
         repairs = new ArrayList<>();
     }
 
-    public static RepairsContainer getContainer() {
-        if (container == null) {
-            container = new RepairsContainer();
+    public static RepairsContainer getInstance() {
+        if (instance == null) {
+            instance = new RepairsContainer();
         }
-        return container;
+        return instance;
     }
 
-    public List<Repair> getRepairs() {
-        return repairs;
-    }
+    public List<Repair> getRepairs() { return repairs; }
 
-    public void setRepairs(List<Repair> repairs) {
-        this.repairs = repairs;
-    }
+    public void setRepairs(List<Repair> repairs) { this.repairs = repairs; }
 
-    public void clear() {
-        repairs.clear();
-    }
+    public void clear() { repairs.clear(); }
 }
