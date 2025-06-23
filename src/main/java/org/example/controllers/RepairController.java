@@ -68,40 +68,45 @@ public class RepairController {
     }
 
     public void initialize() {
-        // Заполнить ComboBox существующими станками
         List<Repair> machines = RepairManager.getAllMachinesForCurrentClient();
         machineComboBox.getItems().setAll(machines);
         machineComboBox.setDisable(false);
         newMachineCheckBox.setSelected(false);
-        newMachineCheckBox.setOnAction(e -> {
-            boolean isNew = newMachineCheckBox.isSelected();
-            machineComboBox.setDisable(isNew);
-            clientField.setDisable(!isNew);
-            brandField.setDisable(!isNew);
-            yearField.setDisable(!isNew);
-            countryField.setDisable(!isNew);
-            contactInfoField.setDisable(!isNew);
-            if (isNew) {
-                clientField.clear();
-                brandField.clear();
-                yearField.clear();
-                countryField.clear();
-                contactInfoField.clear();
+        newMachineCheckBox.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent event) {
+                boolean isNew = newMachineCheckBox.isSelected();
+                machineComboBox.setDisable(isNew);
+                clientField.setDisable(!isNew);
+                brandField.setDisable(!isNew);
+                yearField.setDisable(!isNew);
+                countryField.setDisable(!isNew);
+                contactInfoField.setDisable(!isNew);
+                if (isNew) {
+                    clientField.clear();
+                    brandField.clear();
+                    yearField.clear();
+                    countryField.clear();
+                    contactInfoField.clear();
+                }
             }
         });
-        machineComboBox.setOnAction(e -> {
-            Repair selected = machineComboBox.getValue();
-            if (selected != null) {
-                clientField.clear();
-                brandField.clear();
-                yearField.clear();
-                countryField.clear();
-                contactInfoField.clear();
-                clientField.setDisable(true);
-                brandField.setDisable(true);
-                yearField.setDisable(true);
-                countryField.setDisable(true);
-                contactInfoField.setDisable(true);
+        machineComboBox.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent event) {
+                Repair selected = machineComboBox.getValue();
+                if (selected != null) {
+                    clientField.clear();
+                    brandField.clear();
+                    yearField.clear();
+                    countryField.clear();
+                    contactInfoField.clear();
+                    clientField.setDisable(true);
+                    brandField.setDisable(true);
+                    yearField.setDisable(true);
+                    countryField.setDisable(true);
+                    contactInfoField.setDisable(true);
+                }
             }
         });
     }
@@ -127,8 +132,7 @@ public class RepairController {
         if (newMachineCheckBox.isSelected()) {
             return new Repair(
                     repairInfo != null ? repairInfo.getRepairId() : 0,
-                    clientField.getText(),
-                    0, // machineId будет создан в сервисе
+                    clientField.getText(), 0,
                     brandField.getText(),
                     Integer.parseInt(yearField.getText()),
                     repairTypeField.getText(),

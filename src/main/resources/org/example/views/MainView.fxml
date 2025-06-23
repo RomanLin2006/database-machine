@@ -3,6 +3,15 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.controllers.MainController">
     <top>
+        <MenuBar>
+            <Menu text="Файл">
+                <MenuItem text="Выход" onAction="#handleExit"/>
+            </Menu>
+            <Menu text="Аккаунт">
+                <MenuItem text="Выйти из системы" onAction="#handleLogout"/>
+                <MenuItem text="Изменить мои данные" onAction="#handleEditAccount"/>
+            </Menu>
+        </MenuBar>
     </top>
     <center>
         <TableView fx:id="repairsTable">
@@ -20,4 +29,11 @@
             </columns>
         </TableView>
     </center>
+    <bottom>
+        <HBox fx:id="adminButtonsBox" spacing="10" alignment="CENTER">
+            <Button fx:id="addButton" text="Добавить" onAction="#handleAdd" />
+            <Button fx:id="editButton" text="Изменить" onAction="#handleEdit" />
+            <Button fx:id="deleteButton" text="Удалить" onAction="#handleDelete" />
+        </HBox>
+    </bottom>
 </BorderPane>

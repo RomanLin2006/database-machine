@@ -34,20 +34,20 @@ public class AuthManager {
         String checkSql = "SELECT id FROM users WHERE login = ?";
         try (Connection conn = DatabaseService.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
-             checkStmt.setString(1, login);
-             try (ResultSet rs = checkStmt.executeQuery()) {
+            checkStmt.setString(1, login);
+            try (ResultSet rs = checkStmt.executeQuery()) {
                 if (rs.next()) {
                     return false; // Логин уже занят
                 }
             }
         }
-        // Регистрация нового пользователя с ролью "USER" id=2
+        // Регистрация нового пользователя с ролью "USER" (id=2, например)
         String insertSql = "INSERT INTO users (login, password, role_id) VALUES (?, ?, 2)";
         try (Connection conn = DatabaseService.getConnection();
              PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-             insertStmt.setString(1, login);
-             insertStmt.setString(2, hashPassword(password));
-             return insertStmt.executeUpdate() > 0;
+            insertStmt.setString(1, login);
+            insertStmt.setString(2, hashPassword(password));
+            return insertStmt.executeUpdate() > 0;
         }
     }
 
@@ -62,6 +62,7 @@ public class AuthManager {
         }
     }
 
+    // Хеширование пароля через
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

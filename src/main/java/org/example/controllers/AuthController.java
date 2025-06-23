@@ -12,39 +12,29 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 
 public class AuthController {
-    public enum Mode {LOGIN, REGISTER, EDIT}
-
+    public enum Mode { LOGIN, REGISTER, EDIT }
     private Mode mode;
     private User user;
-    private Runnable onRegister;
     private boolean saved = false;
+    private Runnable onRegister;
     private Consumer<User> onLoginSuccess;
 
-    @FXML
-    private TextField loginField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private PasswordField confirmPasswordField;
-    @FXML
-    private Label loginLabel;
-    @FXML
-    private Label passwordLabel;
-    @FXML
-    private Label confirmPasswordLabel;
-    @FXML
-    private Button mainActionButton;
-    @FXML
-    private Button secondaryActionButton;
-    @FXML
-    private Button cancelButton;
+    @FXML private TextField loginField;
+    @FXML private PasswordField passwordField;
+    @FXML private PasswordField confirmPasswordField;
+    @FXML private Label loginLabel;
+    @FXML private Label passwordLabel;
+    @FXML private Label confirmPasswordLabel;
+    @FXML private Button mainActionButton;
+    @FXML private Button secondaryActionButton;
+    @FXML private Button cancelButton;
 
-    public void setMode(Mode mode) { // Установка режима (вход/регистр/эдит)
+    public void setMode(Mode mode) {
         this.mode = mode;
-        updateInterface();
+        updateUIByMode();
     }
 
-    private void updateInterface() { // Обновление интерфейса
+    private void updateUIByMode() {
         switch (mode) {
             case LOGIN:
                 loginLabel.setText("Логин:");
@@ -89,20 +79,17 @@ public class AuthController {
         }
     }
 
-    // Обработчики успешного входа и регистрации
     public void setOnLoginSuccess(Consumer<User> onLoginSuccess) {
         this.onLoginSuccess = onLoginSuccess;
     }
 
-    public void setOnRegisterSuccess(Runnable onRegister) {
-        this.onRegister = onRegister;
-    }
+    public boolean isSaved() { return saved; }
 
     public String getNewLogin() { return loginField.getText(); }
     public String getNewPassword() { return passwordField.getText(); }
 
     @FXML
-    private void handleAction() { // Обработка действия (вход/регистр/эдит)
+    private void handleAction() {
         switch (mode) {
             case LOGIN:
                 handleLogin();
@@ -116,7 +103,7 @@ public class AuthController {
         }
     }
 
-    private void handleLogin() { // Вход
+    private void handleLogin() {
         String login = loginField.getText();
         String password = passwordField.getText();
         try {
@@ -132,7 +119,7 @@ public class AuthController {
         }
     }
 
-    private void handleRegister() { // Регитсрация
+    private void handleRegister() {
         String login = loginField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
@@ -153,7 +140,7 @@ public class AuthController {
         }
     }
 
-    private void handleEdit() { // Изменение данных
+    private void handleEdit() {
         String login = loginField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
@@ -196,14 +183,13 @@ public class AuthController {
         }
     }
 
-    private void closeStage() { // Закрытие окна
+    private void closeStage() {
         Stage stage = (Stage) loginField.getScene().getWindow();
         if (stage != null) {
             stage.close();
         }
     }
 
-    // Показ всплывающих сообщений об ошибках/успехе
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
