@@ -46,4 +46,20 @@ public class RepairManager {
         }
         RepairsContainer.getInstance().setRepairs(repairs);
     }
+
+    public static List<Repair> getAllMachinesForCurrentClient() { // Возвращение списка ремонтов для каждого станка
+        List<Repair> all = RepairsContainer.getInstance().getRepairs();
+        List<Repair> unique = new ArrayList<>();
+        for (Repair r : all) {
+            boolean exists = false;
+            for (Repair u : unique) {
+                if (u.getMachineId() == r.getMachineId()) {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists) unique.add(r);
+        }
+        return unique;
+    }
 }
