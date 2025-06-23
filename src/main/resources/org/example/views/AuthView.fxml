@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="org.example.controllers.AuthController" hgap="6" vgap="8" alignment="CENTER" minWidth="340" minHeight="180">
+    <Label fx:id="loginLabel" text="Логин:" GridPane.rowIndex="0" GridPane.columnIndex="0" alignment="CENTER_RIGHT" />
+    <TextField fx:id="loginField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+    <Label fx:id="passwordLabel" text="Пароль:" GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="CENTER_RIGHT" />
+    <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+    <Label fx:id="confirmPasswordLabel" text="Повторите пароль:" GridPane.rowIndex="2" GridPane.columnIndex="0" alignment="CENTER_RIGHT" visible="false" />
+    <PasswordField fx:id="confirmPasswordField" GridPane.rowIndex="2" GridPane.columnIndex="1" visible="false" />
+    <HBox spacing="8" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER_RIGHT">
+        <Button fx:id="mainActionButton" text="Войти" onAction="#handleAction" minWidth="120" />
+        <Button fx:id="secondaryActionButton" text="Регистрация" onAction="#handleSecondaryAction" minWidth="120" />
+        <Button fx:id="cancelButton" text="Отмена" onAction="#handleCancel" minWidth="120" />
+    </HBox>
+</GridPane>
