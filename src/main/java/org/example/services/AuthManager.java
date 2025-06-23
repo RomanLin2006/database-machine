@@ -30,18 +30,16 @@ public class AuthManager {
     }
 
     public static boolean register(String login, String password) throws SQLException {
-        // Проверка на уникальность логина
         String checkSql = "SELECT id FROM users WHERE login = ?";
         try (Connection conn = DatabaseService.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
             checkStmt.setString(1, login);
             try (ResultSet rs = checkStmt.executeQuery()) {
                 if (rs.next()) {
-                    return false; // Логин уже занят
+                    return false;
                 }
             }
         }
-        // Регистрация нового пользователя с ролью "USER" (id=2, например)
         String insertSql = "INSERT INTO users (login, password, role_id) VALUES (?, ?, 2)";
         try (Connection conn = DatabaseService.getConnection();
              PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
@@ -62,7 +60,6 @@ public class AuthManager {
         }
     }
 
-    // Хеширование пароля через
     public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

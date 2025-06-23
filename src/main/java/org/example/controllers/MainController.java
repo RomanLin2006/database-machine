@@ -37,9 +37,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        // Загрузка данных из БД
         RepairManager.loadAllRepairs();
-        // Привязка столбцов к полям модели
         clientNameColumn.setCellValueFactory(new javafx.util.Callback<TableColumn.CellDataFeatures<Repair, String>, javafx.beans.value.ObservableValue<String>>() {
             @Override
             public javafx.beans.value.ObservableValue<String> call(TableColumn.CellDataFeatures<Repair, String> data) {
@@ -101,10 +99,8 @@ public class MainController {
             }
         });
 
-        // Загрузка данных в таблицу
         repairsTable.getItems().setAll(RepairsContainer.getInstance().getRepairs());
 
-        // По умолчанию скрываем кнопки для админа
         adminButtonsBox.setVisible(false);
 
         clientNameColumn.setMinWidth(180);
@@ -151,7 +147,6 @@ public class MainController {
             return;
         }
         try {
-            // Сохраняем старые значения для сравнения
             int oldMachineId = selected.getMachineId();
             String oldClientName = selected.getClientName();
             String oldBrand = selected.getBrand();
@@ -212,7 +207,6 @@ public class MainController {
 
     @FXML
     private void handleLogout() {
-        // Закрыть главное окно и открыть окно авторизации
         Stage stage = (Stage) repairsTable.getScene().getWindow();
         if (stage != null) {
             stage.close();
@@ -241,7 +235,6 @@ public class MainController {
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.APPLICATION_MODAL);
             dialogStage.setTitle("Изменить данные пользователя");
-//            dialogStage.setScene(new Scene(root));
             dialogStage.setScene(new Scene(root, 400, 250));
             dialogStage.showAndWait();
             if (controller.isSaved()) {

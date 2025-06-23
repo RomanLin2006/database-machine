@@ -38,7 +38,7 @@ public class RepairController {
             startDateField.setText(repairInfo.getStartDate());
             durationDaysField.setText(String.valueOf(repairInfo.getDurationDays()));
             costField.setText(String.valueOf(repairInfo.getCost()));
-            // Скрыть ComboBox и CheckBox при редактировании
+
             if (machineComboBox != null) machineComboBox.setVisible(false);
             if (newMachineCheckBox != null) newMachineCheckBox.setVisible(false);
         }
@@ -50,7 +50,6 @@ public class RepairController {
 
     @FXML
     private void handleSave() {
-        // Валидация и сохранение данных
         saved = true;
         Stage stage = (Stage) clientField.getScene().getWindow();
         if (stage != null) {
@@ -112,7 +111,6 @@ public class RepairController {
     }
 
     public Repair getResult() {
-        // Режим редактирования: ComboBox и CheckBox скрыты
         if ((machineComboBox == null || !machineComboBox.isVisible()) && (newMachineCheckBox == null || !newMachineCheckBox.isVisible())) {
             return new Repair(
                     repairInfo != null ? repairInfo.getRepairId() : 0,
@@ -128,7 +126,6 @@ public class RepairController {
                     countryField.getText()
             );
         }
-        // Режим добавления
         if (newMachineCheckBox.isSelected()) {
             return new Repair(
                     repairInfo != null ? repairInfo.getRepairId() : 0,

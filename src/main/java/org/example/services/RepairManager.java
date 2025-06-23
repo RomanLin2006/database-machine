@@ -52,16 +52,13 @@ public class RepairManager {
             conn.setAutoCommit(false);
             int machineId;
             if (repair.getMachineId() != 0) {
-                // Используем существующий станок
                 machineId = repair.getMachineId();
             } else {
-                // Новый станок: создаём все справочники и сам станок
                 int clientId = getOrCreateId(conn, "clients", "name", repair.getClientName(), "contact_info", repair.getContactInfo());
                 int brandId = getOrCreateId(conn, "brands", "name", repair.getBrand());
                 int yearId = getOrCreateId(conn, "years_creation", "value", String.valueOf(repair.getYear()));
                 int countryId = getOrCreateId(conn, "countries_creation", "name", repair.getCountry());
                 int dataMachineId = getOrCreateDataMachineId(conn, brandId, yearId, countryId);
-                // Всегда создаём новую запись в machins
                 String insertMachin = "INSERT INTO machins (client_id, data_machine_id) VALUES (?, ?)";
                 try (PreparedStatement stmt = conn.prepareStatement(insertMachin, PreparedStatement.RETURN_GENERATED_KEYS)) {
                     stmt.setInt(1, clientId);
@@ -75,9 +72,7 @@ public class RepairManager {
                     }
                 }
             }
-            // Тип ремонта (с duration_days и cost)
             int repairTypeId = getOrCreateRepairTypeId(conn, repair.getRepairType(), repair.getDurationDays(), repair.getCost());
-            // Добавить ремонт
             String sql = "INSERT INTO repairs (machine_id, repair_type_id, start_date) VALUES (?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, machineId);
@@ -166,7 +161,6 @@ public class RepairManager {
         throw new Exception("Не удалось создать машину");
     }
 
-    // Для типа ремонта с обязательными полями
     private static int getOrCreateRepairTypeId(Connection conn, String name, int durationDays, double cost) throws Exception {
         String select = "SELECT id FROM repair_types WHERE name = ?";
         try (PreparedStatement stmt = conn.prepareStatement(select)) {
@@ -195,7 +189,6 @@ public class RepairManager {
             int countryId = getOrCreateId(conn, "countries_creation", "name", repair.getCountry());
             int dataMachineId = getOrCreateDataMachineId(conn, brandId, yearId, countryId);
 
-            // Если данные не изменились — использовать старый machineId
             int machineId;
             if ( repair.getClientName().equals(oldClientName) &&
                             repair.getBrand().equals(oldBrand) &&
@@ -208,7 +201,6 @@ public class RepairManager {
             }
 
             int repairTypeId = getOrCreateRepairTypeId(conn, repair.getRepairType(), repair.getDurationDays(), repair.getCost());
-            // 8. Обновить стоимость и длительность типа ремонта
             String updateRepairType = "UPDATE repair_types SET duration_days = ?, cost = ? WHERE id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(updateRepairType)) {
                 stmt.setInt(1, repair.getDurationDays());
@@ -216,7 +208,6 @@ public class RepairManager {
                 stmt.setInt(3, repairTypeId);
                 stmt.executeUpdate();
             }
-            // 9. Обновить ремонт
             String sql = "UPDATE repairs SET machine_id = ?, repair_type_id = ?, start_date = ? WHERE id = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, machineId);

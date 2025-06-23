@@ -50,8 +50,8 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/MainView.fxml"));
         Parent root = loader.load();
         MainController mainController = loader.getController();
-        mainController.setCurrentUser(currentUser); // <-- передайте пользователя
-        mainController.showAdminButtons(); // если нужно
+        mainController.setCurrentUser(currentUser);
+        mainController.showAdminButtons();
         primaryStage.setTitle("Главное окно");
         primaryStage.setScene(new Scene(root, 1135, 600));
         primaryStage.setResizable(true);
