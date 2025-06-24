@@ -228,7 +228,7 @@ public class MainController {
     @FXML
     private void handleEditAccount() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/AuthDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/AuthView.fxml"));
             Parent root = loader.load();
             org.example.controllers.AuthController controller = loader.getController();
             controller.setMode(org.example.controllers.AuthController.Mode.EDIT);
