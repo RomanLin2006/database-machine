@@ -167,7 +167,7 @@ public class AuthController {
     private void handleSecondaryAction() {
         if (mode == Mode.LOGIN) {
             try {
-                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/org/example/views/AuthDialog.fxml"));
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/org/example/views/AuthView.fxml"));
                 javafx.scene.Parent root = loader.load();
                 AuthController controller = loader.getController();
                 controller.setMode(Mode.REGISTER);
