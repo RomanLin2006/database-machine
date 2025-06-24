@@ -116,7 +116,7 @@ public class MainController {
     @FXML
     private void handleAdd() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/RepairDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/RepairView.fxml"));
             Parent root = loader.load();
             RepairController controller = loader.getController();
             Stage dialogStage = new Stage();
@@ -136,6 +136,7 @@ public class MainController {
             }
         } catch (Exception e) {
             showAlert("Ошибка", e.getMessage());
+            e.printStackTrace();
         }
     }
 
